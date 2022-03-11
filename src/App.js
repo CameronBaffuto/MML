@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
@@ -7,8 +7,6 @@ import './App.css';
 import { FaPills } from "react-icons/fa";
 
 function App() {
-
-  // const [theme, setTheme] = useState('light');
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase.js";
-import { set, ref, onValue, remove, update } from "firebase/database";
+import { set, ref, onValue, remove } from "firebase/database";
 import { uid } from "uid";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
