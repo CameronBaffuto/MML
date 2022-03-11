@@ -53,7 +53,10 @@ function Home() {
 
     const deleteItem = (uid) => {
         remove(ref(db, `/meds/${uid}`));
-    } 
+    }
+    
+    const amount = meds.length;
+    console.log(amount);
 
   return (
     <div>
@@ -89,13 +92,15 @@ function Home() {
         
         <Container className="pb-5">
           <Button variant="green" className="my-3 float-end" onClick={handleShow}>Add New Drug</Button>
+          <h5 className="my-3 mx-3">Number of Drugs: {amount}</h5>
             <Row>
               <Col></Col>
-        <Form className="py-2">
-          <Form.Group className="mb-3 text-center" controlId="search">
-            <input type="text" className="searchBar form-control rounded-pill py-1 text-light" placeholder="Search..." onChange={event => setQuery(event.target.value)}/>
-          </Form.Group>
-        </Form>  
+              
+              <Form className="py-2">
+                <Form.Group className="mb-3 text-center" controlId="search">
+                  <input type="text" className="searchBar form-control rounded-pill py-1 text-light" placeholder="Search..." onChange={event => setQuery(event.target.value)}/>
+                </Form.Group>
+              </Form>  
 
         
         {
