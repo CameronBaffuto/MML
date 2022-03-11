@@ -61,7 +61,7 @@ function Home() {
   return (
     <div>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} className="modal">
           <Modal.Header closeButton>
             <Modal.Title>Add New Med</Modal.Title>
           </Modal.Header>
