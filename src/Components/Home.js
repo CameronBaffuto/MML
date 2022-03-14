@@ -9,7 +9,6 @@ import { Card } from 'ui-neumorphism'
 import { CardContent, H5 } from 'ui-neumorphism'
 import { CardHeader } from 'ui-neumorphism'
 import { Button } from 'ui-neumorphism'
-import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 import Modal from 'react-bootstrap/Modal';
 import { BsTrashFill } from "react-icons/bs";
@@ -71,11 +70,11 @@ function Home() {
           </Modal.Header>
           <Modal.Body>
          
-              <TextField dark rounded width={320} type="text" label="Name" value={name} onChange={(e) => setName(e.value)} />
+              <TextField dark type="text" label="Name" value={name} onChange={(e) => setName(e.value)} />
             
-              <TextField dark rounded width={320} type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
+              <TextField dark type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
            
-              <TextField dark rounded width={320} type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
+              <TextField dark type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
             
           </Modal.Body>
           <Modal.Footer>
@@ -91,7 +90,7 @@ function Home() {
             <Row>
               <Col></Col>
                
-                <TextField type="text" dark rounded width={320} label="Search..." value={query} onChange={(e) => setQuery(e.value)} />
+                <TextField type="text" dark label="Search..." value={query} onChange={(e) => setQuery(e.value)} />
     
         {
             meds
