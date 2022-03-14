@@ -90,7 +90,7 @@ function Home() {
             <Row>
               <Col></Col>
                
-                <TextField type="text" label="Search..." value={query} onChange={(e) => setQuery(e.value)} />
+                <TextField dark autofocus bordered type="text" label="Search..." value={query} onChange={(e) => setQuery(e.value)} />
     
         {
             meds
