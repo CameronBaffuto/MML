@@ -4,7 +4,7 @@
 }
 
 .background {
-    background-color: #121212;
+    background-color: #444444;
     color: #F7F7F7;
 }
 
@@ -14,7 +14,7 @@
 }
 
 input.searchBar {
-    background-color: #121212;
+    background-color: #444444;
     border: 3px solid #FF7597;
     width: 50%;
 }
@@ -25,11 +25,10 @@ input.searchBar {
 }
 
 .form-control:focus {
-    background-color: #121212;
-    border: 3px solid #FF7597;
+    background-color: #444444;
 }
  
 .modal .modal-content{
-    background-color: #FF7597;
+    background-color: #444444;
     color: #F7F7F7;
 }

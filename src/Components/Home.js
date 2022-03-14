@@ -5,12 +5,16 @@ import { uid } from "uid";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import { Card } from 'ui-neumorphism'
+import { CardContent, H5 } from 'ui-neumorphism'
+import { CardHeader } from 'ui-neumorphism'
+import { Button } from 'ui-neumorphism'
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 import Modal from 'react-bootstrap/Modal';
 import { BsTrashFill } from "react-icons/bs";
+import { TextField } from 'ui-neumorphism'
+import { Divider } from 'ui-neumorphism'
 
 function Home() {
     const [meds, setMeds] = useState([]);
@@ -60,49 +64,35 @@ function Home() {
 
   return (
     <div>
-
-        <Modal show={show} onHide={handleClose} className="modal">
+<Divider dark dense elevated />
+        <Modal show={show} onHide={handleClose} dark>
           <Modal.Header closeButton>
             <Modal.Title>Add New Med</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Drug Name</Form.Label>
-              <Form.Control type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Mg</Form.Label>
-              <Form.Control type="text" placeholder="Mg" value={mg} onChange={(e) => setMg(e.target.value)} />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Type</Form.Label>
-              <Form.Control type="text" placeholder="Type" value={type} onChange={(e) => setType(e.target.value)} />
-            </Form.Group>
-          </Form>
+         
+              <TextField dark rounded width={320} type="text" label="Name" value={name} onChange={(e) => setName(e.value)}></TextField>
+            
+              <TextField dark rounded width={320} type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)}></TextField>
+           
+              <TextField dark rounded width={320} type="text" label="Type" value={type} onChange={(e) => setType(e.value)}></TextField>
+            
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="green" onClick={writeToDatabase}>
+            <Button dark onClick={writeToDatabase}>
               Submit
             </Button>
           </Modal.Footer>
         </Modal>
         
         <Container className="pb-5">
-          <Button variant="green" className="my-3 float-end" onClick={handleShow}>Add New Drug</Button>
+          <Button dark className="my-3 float-end" onClick={handleShow}>Add New Drug</Button>
           <h5 className="my-3 mx-3">Number of Drugs: {amount}</h5>
             <Row>
               <Col></Col>
-              
-              <Form className="py-2">
-                <Form.Group className="mb-3 text-center" controlId="search">
-                  <input type="text" className="searchBar form-control rounded-pill py-1 text-light" placeholder="Search..." onChange={event => setQuery(event.target.value)}/>
-                </Form.Group>
-              </Form>  
-
-        
+               
+                <TextField type="text" dark rounded width={320} label="Search..." value={query} uncontrolled onChange={(e) => setQuery(e.value)}></TextField>
+    
         {
             meds
             .filter(med => med.name.toLowerCase().includes(query.toLowerCase()))
@@ -111,16 +101,16 @@ function Home() {
                 return (
                   
                       <Col xs={12} md={6}>
-                        <Card className="red my-3 mx-2">
-                          <Card.Body>
-                            <Card.Title as="h2">{med.name}</Card.Title>
+                        <Card dark rounded className="my-3 mx-2 p-3">
+                          <CardContent>
+                            <CardHeader>{med.name}</CardHeader>
                             <Stack direction="horizontal" gap={3}>
-                            <Card.Text as="h5">{med.mg} Mg</Card.Text>
+                            <H5 dark>{med.mg} Mg</H5>
                             <div className="vr" />
-                            <Card.Text as="h5">{med.type}</Card.Text>
-                            <Button variant="red" className="ms-auto text-light" size="lg" onClick={() => deleteItem(med.uidd)}><BsTrashFill /></Button>
+                            <H5 dark>{med.type}</H5>
+                            <Button dark className="ms-auto" onClick={() => deleteItem(med.uidd)}><BsTrashFill /></Button>
                             </Stack>
-                          </Card.Body>
+                          </CardContent>
                         </Card>
                       </Col>
                 )

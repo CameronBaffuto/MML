@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'ui-neumorphism/dist/index.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import './App.css';
@@ -10,15 +11,9 @@ function App() {
 
   return (
     <div>
-      <Navbar className="red">
+      <Navbar>
         <Container>
           <Navbar.Brand href="#home" className="text-light"><FaPills /> Mom's Meds</Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text className="text-light">
-              
-            </Navbar.Text>
-          </Navbar.Collapse>
         </Container>
       </Navbar>
       <Home />
