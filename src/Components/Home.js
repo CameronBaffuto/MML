@@ -71,11 +71,11 @@ function Home() {
           </Modal.Header>
           <Modal.Body>
          
-              <TextField dark rounded width={320} type="text" label="Name" value={name} onChange={(e) => setName(e.value)}></TextField>
+              <TextField dark rounded width={320} type="text" label="Name" value={name} onChange={(e) => setName(e.value)} />
             
-              <TextField dark rounded width={320} type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)}></TextField>
+              <TextField dark rounded width={320} type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
            
-              <TextField dark rounded width={320} type="text" label="Type" value={type} onChange={(e) => setType(e.value)}></TextField>
+              <TextField dark rounded width={320} type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
             
           </Modal.Body>
           <Modal.Footer>
@@ -91,7 +91,7 @@ function Home() {
             <Row>
               <Col></Col>
                
-                <TextField type="text" dark rounded width={320} label="Search..." value={query} uncontrolled onChange={(e) => setQuery(e.value)}></TextField>
+                <TextField type="text" dark rounded width={320} label="Search..." value={query} onChange={(e) => setQuery(e.value)} />
     
         {
             meds
