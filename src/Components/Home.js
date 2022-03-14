@@ -12,7 +12,7 @@ import { Button } from 'ui-neumorphism'
 import Stack from 'react-bootstrap/Stack';
 import Modal from 'react-bootstrap/Modal';
 import { BsTrashFill } from "react-icons/bs";
-import { TextField } from 'ui-neumorphism'
+import { TextField, TextArea } from 'ui-neumorphism'
 import { Divider } from 'ui-neumorphism'
 
 function Home() {
@@ -70,11 +70,11 @@ function Home() {
           </Modal.Header>
           <Modal.Body>
          
-              <TextField dark type="text" label="Name" value={name} onChange={(e) => setName(e.value)} />
+              <TextArea dark type="text" label="Name" value={name} onChange={(e) => setName(e.value)} />
             
-              <TextField dark type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
+              <TextArea dark type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
            
-              <TextField dark type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
+              <TextArea dark type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
             
           </Modal.Body>
           <Modal.Footer>
