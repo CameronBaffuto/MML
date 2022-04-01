@@ -62,6 +62,7 @@ function Home() {
 
     const deleteItem = (uid) => {
         remove(ref(db, `/meds/${uid}`));
+        setShow2(false);
     }
     
     const amount = meds.length;
