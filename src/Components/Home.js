@@ -20,11 +20,15 @@ function Home() {
     const [name, setName] = useState("");
     const [mg, setMg] = useState("");
     const [type, setType] = useState("");
+    const [frequency, setFrequency] = useState("");
     const [query, setQuery] = useState("")
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
 
     useEffect(() => {
             // read
@@ -45,12 +49,14 @@ function Home() {
           name: name,
           mg: mg,
           type: type,
+          frequency: frequency,
           uidd: uidd,
         });
 
         setName("");
         setMg("");
         setType("");
+        setFrequency("");
         setShow(false);
       }
 
@@ -75,6 +81,8 @@ function Home() {
               <TextField dark autofocus bordered type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
            
               <TextField dark autofocus bordered type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
+
+              <TextField dark autofocus bordered type="text" label="Frequency" value={frequency} onChange={(e) => setFrequency(e.value)} />
             
           </Modal.Body>
           <Modal.Footer>
@@ -107,10 +115,27 @@ function Home() {
                             <H5 dark>{med.mg} Mg</H5>
                             <div className="vr" />
                             <H5 dark>{med.type}</H5>
-                            <Button dark className="ms-auto" onClick={() => deleteItem(med.uidd)}><BsTrashFill /></Button>
+                            <div className="vr" />
+                            <H5 dark>{med.frequency}</H5>
+                            <Button dark className="ms-auto" onClick={handleShow2}><BsTrashFill /></Button>
                             </Stack>
                           </CardContent>
                         </Card>
+
+                        <Modal show={show2} onHide={handleClose2} dark>
+                        <Modal.Header closeButton>
+                          <Modal.Title>Delete?</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                      
+                            <h4>Are you sure you want to delete?</h4>
+
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button dark onClick={() => deleteItem(med.uidd)}>Delete</Button>
+                            <Button dark onClick={handleClose2}>Cancel</Button>
+                        </Modal.Footer>
+                      </Modal>
                       </Col>
                 )
             })
