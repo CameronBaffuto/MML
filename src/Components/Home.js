@@ -9,11 +9,14 @@ import { Card } from 'ui-neumorphism'
 import { CardContent, H5 } from 'ui-neumorphism'
 import { CardHeader } from 'ui-neumorphism'
 import { Button } from 'ui-neumorphism'
+import { Fab } from 'ui-neumorphism';
 import Stack from 'react-bootstrap/Stack';
 import Modal from 'react-bootstrap/Modal';
 import { BsTrashFill } from "react-icons/bs";
 import { TextField } from 'ui-neumorphism'
 import { Divider } from 'ui-neumorphism'
+import { FaCloudDownloadAlt } from "react-icons/fa";
+import { CSVLink } from "react-csv";
 
 function Home() {
     const [meds, setMeds] = useState([]);
@@ -66,7 +69,21 @@ function Home() {
     }
     
     const amount = meds.length;
-    console.log(amount);
+    // console.log(amount);
+
+    const headers = [
+        { label: 'Name', key: 'name' },
+        { label: 'Mg', key: 'mg' },
+        { label: 'Type', key: 'type' },
+        { label: 'Frequency', key: 'frequency' },
+    ]
+
+    const data = meds.map(med => ({
+        name: med.name,
+        mg: med.mg,
+        type: med.type,
+        frequency: med.frequency,
+    }));
 
   return (
     <div>
@@ -95,7 +112,20 @@ function Home() {
         
         <Container className="pb-5">
           <Button dark className="my-3 float-end" onClick={handleShow}>Add New Drug</Button>
+
+          <Fab dark className="my-2 mx-4 float-end">
+            <CSVLink
+              data={data}
+              headers={headers}
+              filename={"BarbaraMeds.csv"}
+              target="_blank"
+              >
+                <FaCloudDownloadAlt style={{ color: '#fff', fontSize: '20px'}}/>
+            </CSVLink>
+          </Fab>
+
           <h5 className="my-3 mx-3">Number of Drugs: {amount}</h5>
+
             <Row>
               <Col></Col>
                
