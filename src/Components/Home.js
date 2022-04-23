@@ -148,8 +148,9 @@ function Home() {
                             <H5 dark>{med.type}</H5>
                             <div className="vr" />
                             <H5 dark>{med.frequency}</H5>
-                            <Button dark className="ms-auto" onClick={handleShow2}><BsTrashFill /></Button>
                             </Stack>
+                            <Button dark className="float-end" onClick={handleShow2}><BsTrashFill /></Button>
+                            <br/>
                           </CardContent>
                         </Card>
 
