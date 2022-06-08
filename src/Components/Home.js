@@ -71,8 +71,17 @@ function Home() {
     const amount = meds.length;
     // console.log(amount);
 
-    const daytime = meds.filter(med => med.frequency === 'movie');
-    const daytime = daytime.length;
+    const getday = meds.filter(med => med.frequency === 'Day');
+    const daytime = getday.length;
+
+    const getnight = meds.filter(med => med.frequency === 'Night');
+    const nighttime = getnight.length;
+
+    const getboth = meds.filter(med => med.frequency === 'Day & Night');
+    const bothdn = getboth.length;
+
+    const getasneed = meds.filter(med => med.frequency === 'As Needed');
+    const asneed = getasneed.length;
 
     const headers = [
         { label: 'Name', key: 'name' },
@@ -128,7 +137,7 @@ function Home() {
           </Fab>
 
           <h5 className="my-3 mx-3">Number of Drugs: {amount}</h5>
-          <h5 className="my-3 mx-3">Day: {daytime}</h5>
+          <p className="my-3 mx-3">Day: {daytime} | Night: {nighttime} | Both: {bothdn} | As Needed: {asneed}</p>
 
             <Row>
               <Col></Col>
