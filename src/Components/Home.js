@@ -71,6 +71,9 @@ function Home() {
     const amount = meds.length;
     // console.log(amount);
 
+    const daytime = meds.filter(med => med.frequency === 'movie');
+    const daytime = daytime.length;
+
     const headers = [
         { label: 'Name', key: 'name' },
         { label: 'Mg', key: 'mg' },
@@ -125,6 +128,7 @@ function Home() {
           </Fab>
 
           <h5 className="my-3 mx-3">Number of Drugs: {amount}</h5>
+          <h5 className="my-3 mx-3">Day: {daytime}</h5>
 
             <Row>
               <Col></Col>
