@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase.js";
-import { set, ref, onValue, remove } from "firebase/database";
+import { set, ref, onValue, remove, update } from "firebase/database";
 import { uid } from "uid";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -13,6 +13,7 @@ import { Fab } from 'ui-neumorphism';
 import Stack from 'react-bootstrap/Stack';
 import Modal from 'react-bootstrap/Modal';
 import { BsTrashFill } from "react-icons/bs";
+import { BsPencilFill } from "react-icons/bs";
 import { TextField } from 'ui-neumorphism'
 import { Divider } from 'ui-neumorphism'
 import { FaCloudDownloadAlt } from "react-icons/fa";
@@ -25,13 +26,16 @@ function Home() {
     const [type, setType] = useState("");
     const [frequency, setFrequency] = useState("");
     const [query, setQuery] = useState("")
-    const [show, setShow] = useState(false);
-    const [show2, setShow2] = useState(false);
+    const [showAdd, setShowAdd] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const handleClose2 = () => setShow2(false);
-    const handleShow2 = () => setShow2(true);
+    const handleCloseAdd = () => setShowAdd(false);
+    const handleShowAdd = () => setShowAdd(true);
+    const handleCloseDelete = () => setShowDelete(false);
+    const handleShowDelete = () => setShowDelete(true);
+    const handleCloseEdit = () => setShowEdit(false);
+    const handleShowEdit = () => setShowEdit(true);
 
     useEffect(() => {
             // read
@@ -60,12 +64,30 @@ function Home() {
         setMg("");
         setType("");
         setFrequency("");
-        setShow(false);
+        setShowAdd(false);
       }
 
     const deleteItem = (uid) => {
         remove(ref(db, `/meds/${uid}`));
-        setShow2(false);
+        setShowDelete(false);
+    }
+
+    const editItem = (med) => {
+        setName(med.name);
+        setMg(med.mg);
+        setType(med.type);
+        setFrequency(med.frequency);
+        setShowEdit(true);
+  }
+
+    const confirmEdit = (uid) => {
+      update(ref(db, `/meds/${uid}`), {
+        name: name,
+        mg: mg,
+        type: type,
+        frequency: frequency,
+      });
+      setShowEdit(false);
     }
     
     const amount = meds.length;
@@ -100,7 +122,7 @@ function Home() {
   return (
     <div>
 <Divider dark dense elevated />
-        <Modal show={show} onHide={handleClose} dark>
+        <Modal show={showAdd} onHide={handleCloseAdd} dark>
           <Modal.Header closeButton>
             <Modal.Title>Add New Med</Modal.Title>
           </Modal.Header>
@@ -123,7 +145,7 @@ function Home() {
         </Modal>
         
         <Container className="pb-5">
-          <Button dark className="my-3 float-end" onClick={handleShow}>Add New Drug</Button>
+          <Button dark className="my-3 float-end" onClick={handleShowAdd}>Add New Drug</Button>
 
           <Fab dark className="my-2 mx-4 float-end">
             <CSVLink
@@ -162,12 +184,13 @@ function Home() {
                             <div className="vr" />
                             <H5 dark>{med.frequency}</H5>
                             </Stack>
-                            <Button dark className="float-end" onClick={handleShow2}><BsTrashFill /></Button>
+                            <Button dark className="float-end m-1" onClick={handleShowDelete}><BsTrashFill /></Button>
+                            <Button dark className="float-end m-1" onClick={() => editItem(med)}><BsPencilFill /></Button>
                             <br/>
                           </CardContent>
                         </Card>
 
-                        <Modal show={show2} onHide={handleClose2} dark>
+                      <Modal show={showDelete} onHide={handleCloseDelete} dark>
                         <Modal.Header closeButton>
                           <Modal.Title>Delete?</Modal.Title>
                         </Modal.Header>
@@ -178,7 +201,28 @@ function Home() {
                         </Modal.Body>
                         <Modal.Footer>
                             <Button dark onClick={() => deleteItem(med.uidd)}>Delete</Button>
-                            <Button dark onClick={handleClose2}>Cancel</Button>
+                            <Button dark onClick={handleCloseDelete}>Cancel</Button>
+                        </Modal.Footer>
+                      </Modal>
+
+                      <Modal show={showEdit} onHide={handleCloseEdit} dark>
+                        <Modal.Header closeButton>
+                          <Modal.Title>Edit</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                      
+                        <TextField dark autofocus bordered type="text" label="Name" value={name} onChange={(e) => setName(e.value)} />
+            
+                        <TextField dark autofocus bordered type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
+                    
+                        <TextField dark autofocus bordered type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
+
+                        <TextField dark autofocus bordered type="text" label="Frequency" value={frequency} onChange={(e) => setFrequency(e.value)} />
+
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button dark onClick={() => confirmEdit(med.uidd)}>Save</Button>
+                            <Button dark onClick={handleCloseEdit}>Cancel</Button>
                         </Modal.Footer>
                       </Modal>
                       </Col>
