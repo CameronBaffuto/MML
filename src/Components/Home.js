@@ -29,6 +29,7 @@ function Home() {
     const [showAdd, setShowAdd] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
+    const [tempUidd, setTempUidd] = useState("");
 
     const handleCloseAdd = () => setShowAdd(false);
     const handleShowAdd = () => setShowAdd(true);
@@ -67,6 +68,11 @@ function Home() {
         setShowAdd(false);
       }
 
+    const deletePopup = (med) => {
+        setName(med.name);
+        setShowDelete(true);
+    }  
+
     const deleteItem = (uid) => {
         remove(ref(db, `/meds/${uid}`));
         setShowDelete(false);
@@ -77,17 +83,23 @@ function Home() {
         setMg(med.mg);
         setType(med.type);
         setFrequency(med.frequency);
+        setTempUidd(med.uidd);
         setShowEdit(true);
   }
 
-    const confirmEdit = (uid) => {
-      update(ref(db, `/meds/${uid}`), {
+    const confirmEdit = () => {
+      update(ref(db, `/meds/${tempUidd}`), {
         name: name,
         mg: mg,
         type: type,
         frequency: frequency,
+        tempUidd: tempUidd,
       });
       setShowEdit(false);
+      setName("");
+      setMg("");
+      setType("");
+      setFrequency("");
     }
     
     const amount = meds.length;
@@ -184,7 +196,7 @@ function Home() {
                             <div className="vr" />
                             <H5 dark>{med.frequency}</H5>
                             </Stack>
-                            <Button dark className="float-end m-1" onClick={handleShowDelete}><BsTrashFill /></Button>
+                            <Button dark className="float-end m-1" onClick={() => deletePopup(med)}><BsTrashFill /></Button>
                             <Button dark className="float-end m-1" onClick={() => editItem(med)}><BsPencilFill /></Button>
                             <br/>
                           </CardContent>
@@ -197,6 +209,7 @@ function Home() {
                         <Modal.Body>
                       
                             <h4>Are you sure you want to delete?</h4>
+                            <p>{name}</p>
 
                         </Modal.Body>
                         <Modal.Footer>
@@ -207,7 +220,7 @@ function Home() {
 
                       <Modal show={showEdit} onHide={handleCloseEdit} dark>
                         <Modal.Header closeButton>
-                          <Modal.Title>Edit</Modal.Title>
+                          <Modal.Title>Edit {name}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                       
@@ -221,8 +234,7 @@ function Home() {
 
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button dark onClick={() => confirmEdit(med.uidd)}>Save</Button>
-                            <Button dark onClick={handleCloseEdit}>Cancel</Button>
+                            <Button dark onClick={confirmEdit}>Save</Button>
                         </Modal.Footer>
                       </Modal>
                       </Col>
