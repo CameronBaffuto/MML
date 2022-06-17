@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase.js";
+import { auth, db } from "../firebase.js";
 import { set, ref, onValue, remove, update } from "firebase/database";
 import { uid } from "uid";
 import Container from 'react-bootstrap/Container';
@@ -19,6 +19,7 @@ import { Divider } from 'ui-neumorphism'
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import { CSVLink } from "react-csv";
 
+
 function Home() {
     const [meds, setMeds] = useState([]);
     const [name, setName] = useState("");
@@ -30,6 +31,7 @@ function Home() {
     const [showDelete, setShowDelete] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [tempUidd, setTempUidd] = useState("");
+    const [isUser, setIsUser] = useState(false);
 
     const handleCloseAdd = () => setShowAdd(false);
     const handleShowAdd = () => setShowAdd(true);
@@ -50,6 +52,14 @@ function Home() {
               }
             });
             }, []);
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                setIsUser(true);
+                }
+            })
+    })
 
     const writeToDatabase = () => {
         const uidd = uid();
@@ -157,7 +167,14 @@ function Home() {
         </Modal>
         
         <Container className="pb-5">
-          <Button dark className="my-3 float-end" onClick={handleShowAdd}>Add New Drug</Button>
+          {
+            isUser ? (
+              <Button dark className="my-3 float-end" onClick={handleShowAdd}>Add New Drug</Button>
+            ) : (
+              <></>
+            )
+          }
+          
 
           <Fab dark className="my-2 mx-4 float-end">
             <CSVLink
@@ -196,9 +213,16 @@ function Home() {
                             <div className="vr" />
                             <H5 dark>{med.frequency}</H5>
                             </Stack>
-                            <Button dark className="float-end m-1" onClick={() => deletePopup(med)}><BsTrashFill /></Button>
-                            <Button dark className="float-end m-1" onClick={() => editItem(med)}><BsPencilFill /></Button>
-                            <br/>
+                            {
+                              isUser ? (
+                              <>
+                                <Button dark className="float-end m-1" onClick={() => deletePopup(med)}><BsTrashFill /></Button>
+                                <Button dark className="float-end m-1" onClick={() => editItem(med)}><BsPencilFill /></Button>
+                                <br/>
+                              </>
+                            ) : (
+                              <></>
+                            )}
                           </CardContent>
                         </Card>
 
