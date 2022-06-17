@@ -66,7 +66,7 @@ useEffect(() => {
           isUser ? (
             <Button dark className="float-end m-2" onClick={handleSignOut}>Sign Out</Button>
           ): (
-            <Button dark className="float-end m-2" onClick={handleShow}>Sign In</Button>
+            <Button dark className="float-end m-2" onClick={handleShow}>Admin</Button>
           )
         }
       </Navbar>

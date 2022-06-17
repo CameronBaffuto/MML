@@ -28,15 +28,12 @@ function Home() {
     const [frequency, setFrequency] = useState("");
     const [query, setQuery] = useState("")
     const [showAdd, setShowAdd] = useState(false);
-    const [showDelete, setShowDelete] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [tempUidd, setTempUidd] = useState("");
     const [isUser, setIsUser] = useState(false);
 
     const handleCloseAdd = () => setShowAdd(false);
     const handleShowAdd = () => setShowAdd(true);
-    const handleCloseDelete = () => setShowDelete(false);
-    const handleShowDelete = () => setShowDelete(true);
     const handleCloseEdit = () => setShowEdit(false);
     const handleShowEdit = () => setShowEdit(true);
 
@@ -78,14 +75,8 @@ function Home() {
         setShowAdd(false);
       }
 
-    const deletePopup = (med) => {
-        setName(med.name);
-        setShowDelete(true);
-    }  
-
     const deleteItem = (uid) => {
         remove(ref(db, `/meds/${uid}`));
-        setShowDelete(false);
     }
 
     const editItem = (med) => {
@@ -174,7 +165,6 @@ function Home() {
               <></>
             )
           }
-          
 
           <Fab dark className="my-2 mx-4 float-end">
             <CSVLink
@@ -216,7 +206,7 @@ function Home() {
                             {
                               isUser ? (
                               <>
-                                <Button dark className="float-end m-1" onClick={() => deletePopup(med)}><BsTrashFill /></Button>
+                                <Button dark className="float-end m-1" onClick={() => deleteItem(med.uidd)}><BsTrashFill /></Button>
                                 <Button dark className="float-end m-1" onClick={() => editItem(med)}><BsPencilFill /></Button>
                                 <br/>
                               </>
@@ -226,21 +216,6 @@ function Home() {
                           </CardContent>
                         </Card>
 
-                      <Modal show={showDelete} onHide={handleCloseDelete} dark>
-                        <Modal.Header closeButton>
-                          <Modal.Title>Delete?</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                      
-                            <h4>Are you sure you want to delete?</h4>
-                            <p>{name}</p>
-
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button dark onClick={() => deleteItem(med.uidd)}>Delete</Button>
-                            <Button dark onClick={handleCloseDelete}>Cancel</Button>
-                        </Modal.Footer>
-                      </Modal>
 
                       <Modal show={showEdit} onHide={handleCloseEdit} dark>
                         <Modal.Header closeButton>
