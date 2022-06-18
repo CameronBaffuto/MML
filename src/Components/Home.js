@@ -155,8 +155,6 @@ function Home() {
            
               <TextField dark autofocus bordered type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
 
-            //  <TextField dark autofocus bordered type="text" label="Frequency" value={frequency} onChange={(e) => setFrequency(e.value)} />
-
               <RadioGroup vertical value={frequency} dark onChange={(e) => setFrequency(e.value)}>
                  <Radio value='Day' label='Day' />
                  <Radio value='Night' label='Night' />
@@ -244,7 +242,12 @@ function Home() {
                     
                         <TextField dark autofocus bordered type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
 
-                        <TextField dark autofocus bordered type="text" label="Frequency" value={frequency} onChange={(e) => setFrequency(e.value)} />
+                        <RadioGroup vertical value={frequency} dark onChange={(e) => setFrequency(e.value)}>
+                         <Radio value='Day' label='Day' />
+                         <Radio value='Night' label='Night' />
+                         <Radio value='Day & Night' label='Day & Night' />
+                         <Radio value='As Needed' label='As Needed' />
+                        </RadioGroup>
 
                         </Modal.Body>
                         <Modal.Footer>
