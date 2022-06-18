@@ -33,7 +33,13 @@ function Home() {
     const [isUser, setIsUser] = useState(false);
 
     const handleCloseAdd = () => setShowAdd(false);
-    const handleShowAdd = () => setShowAdd(true);
+    const handleShowAdd = () => {
+        setName("");
+        setMg("");
+        setType("");
+        setFrequency("");
+        setShowAdd(true);
+    }
     const handleCloseEdit = () => setShowEdit(false);
     const handleShowEdit = () => setShowEdit(true);
 
