@@ -210,7 +210,7 @@ function Home() {
     
         {
             meds
-            .filter(med => med.name.toLowerCase().includes(query.toLowerCase()))
+            .filter(med => med.name.toLowerCase().includes(query.toLowerCase()) || med.frequency.toLowerCase().includes(query.toLowerCase()))
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(med => {
                 return (
