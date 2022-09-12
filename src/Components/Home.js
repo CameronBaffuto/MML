@@ -20,6 +20,9 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 import { CSVLink } from "react-csv";
 import { RadioGroup } from 'ui-neumorphism';
 import { Radio } from 'ui-neumorphism';
+import Image from 'react-bootstrap/Image'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 
 function Home() {
@@ -27,6 +30,7 @@ function Home() {
     const [name, setName] = useState("");
     const [mg, setMg] = useState("");
     const [type, setType] = useState("");
+    const [medImage, setMedImage] = useState("")
     const [frequency, setFrequency] = useState("");
     const [query, setQuery] = useState("")
     const [showAdd, setShowAdd] = useState(false);
@@ -72,6 +76,7 @@ function Home() {
           name: name,
           mg: mg,
           type: type,
+          medImage: medImage,
           frequency: frequency,
           uidd: uidd,
         });
@@ -93,6 +98,7 @@ function Home() {
         setType(med.type);
         setFrequency(med.frequency);
         setTempUidd(med.uidd);
+        setMedImage(med.medImage);
         setShowEdit(true);
   }
 
@@ -101,6 +107,7 @@ function Home() {
         name: name,
         mg: mg,
         type: type,
+        medImage: medImage,
         frequency: frequency,
         tempUidd: tempUidd,
       });
@@ -109,6 +116,7 @@ function Home() {
       setMg("");
       setType("");
       setFrequency("");
+      setMedImage("");
     }
     
     const amount = meds.length;
@@ -154,6 +162,8 @@ function Home() {
               <TextField dark autofocus bordered type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
            
               <TextField dark autofocus bordered type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
+
+              <TextField dark autofocus bordered type="text" label="Image URL" value={medImage} onChange={(e) => setMedImage(e.value)} />
 
               <RadioGroup vertical value={frequency} dark onChange={(e) => setFrequency(e.value)}>
                  <Radio value='Day' label='Day' color='yellow' />
@@ -208,7 +218,12 @@ function Home() {
                       <Col xs={12} md={6}>
                         <Card dark rounded className="my-3 mx-2 p-3">
                           <CardContent>
-                            <CardHeader>{med.name}</CardHeader>
+                            <CardHeader>
+                              <Zoom>
+                                <Image className="mx-3" rounded fluid src={med.medImage} width={150}/>  { med.name }
+                              </Zoom>
+                                
+                            </CardHeader>
                             <Stack direction="horizontal" gap={3}>
                             <H5 dark>{med.mg} Mg</H5>
                             <div className="vr" />
@@ -241,6 +256,8 @@ function Home() {
                         <TextField dark autofocus bordered type="text" label="Mg" value={mg} onChange={(e) => setMg(e.value)} />
                     
                         <TextField dark autofocus bordered type="text" label="Type" value={type} onChange={(e) => setType(e.value)} />
+
+                        <TextField dark autofocus bordered type="text" label="Image URL" value={medImage} onChange={(e) => setMedImage(e.value)} />
 
                         <RadioGroup vertical value={frequency} dark onChange={(e) => setFrequency(e.value)}>
                             <Radio value='Day' label='Day' color='yellow' />
