@@ -23,6 +23,8 @@ import { Radio } from 'ui-neumorphism';
 import Image from 'react-bootstrap/Image'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import { BsFillFilterCircleFill } from "react-icons/bs";
+import { RiFilterOffFill } from "react-icons/ri"
 
 
 function Home() {
@@ -37,6 +39,10 @@ function Home() {
     const [showEdit, setShowEdit] = useState(false);
     const [tempUidd, setTempUidd] = useState("");
     const [isUser, setIsUser] = useState(false);
+    const [showFilter, setShowFilter] = useState(false);
+
+    const handleCloseFilter = () => setShowFilter(false);
+    const handleShowFilter = () => setShowFilter(true);
 
     const handleCloseAdd = () => setShowAdd(false);
     const handleShowAdd = () => {
@@ -118,6 +124,11 @@ function Home() {
       setFrequency("");
       setMedImage("");
     }
+
+    const resetFilter = () => {
+      setQuery("");
+      query("");
+    }
     
     const amount = meds.length;
     // console.log(amount);
@@ -189,24 +200,45 @@ function Home() {
             )
           }
 
-          <Fab dark className="my-2 mx-4 float-end">
+          <Fab dark className="my-2 mx-2 float-end">
             <CSVLink
               data={data}
               headers={headers}
-              filename={"BarbaraMeds.csv"}
+              filename={"Meds.csv"}
               target="_blank"
               >
                 <FaCloudDownloadAlt style={{ color: '#fff', fontSize: '20px'}}/>
             </CSVLink>
           </Fab>
-
+        
           <h5 className="my-3 mx-3">Number of Drugs: {amount}</h5>
           <p className="my-3 mx-3">Day: {daytime} | Night: {nighttime} | Both: {bothdn} | As Needed: {asneed}</p>
+          
+          <Stack direction="horizontal" gap={3}>
+            <TextField dark autofocus bordered type="text" label="Search..." value={query} onChange={(e) => setQuery(e.value)} /> 
+            <Fab dark onClick={handleShowFilter}> <BsFillFilterCircleFill style={{ color: '#fff', fontSize: '20px'}}/> </Fab>
+            <Fab dark onClick={resetFilter}><RiFilterOffFill style={{ color: '#fff', fontSize: '20px'}}/></Fab> 
+          </Stack>
 
             <Row>
-              <Col></Col>
-               
-                <TextField dark autofocus bordered type="text" label="Search..." value={query} onChange={(e) => setQuery(e.value)} />
+            
+                <Modal show={showFilter} onHide={handleCloseFilter}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Filter</Modal.Title>
+                </Modal.Header>
+                  <Modal.Body>
+                    <RadioGroup value={query} dark vertical onChange={(e) => setQuery(e.value)}>
+                      <Radio value='' label='All' color='green' />
+                      <Radio value='Day' label='Day' color='yellow' />
+                      <Radio value='Night' label='Night' color='blue' />
+                      <Radio value='Day & Night' label='Day & Night' color='purple' />
+                    </RadioGroup>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button dark onClick={handleCloseFilter}>Apply</Button>
+                  </Modal.Footer>
+                </Modal>
+                
     
         {
             meds
@@ -275,7 +307,7 @@ function Home() {
                 )
             })
         }
-        <Col></Col>
+        
             </Row>
         </Container>
     </div>
