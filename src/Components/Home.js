@@ -214,7 +214,7 @@ function Home() {
           <h5 className="my-3 mx-3">Number of Drugs: {amount}</h5>
           <p className="my-3 mx-3">Day: {daytime} | Night: {nighttime} | Both: {bothdn} | As Needed: {asneed}</p>
           
-          <Stack direction="horizontal" gap={3}>
+          <Stack className="mr-4" direction="horizontal" gap={3}>
             <TextField dark autofocus bordered type="text" label="Search..." value={query} onChange={(e) => setQuery(e.value)} /> 
             <Fab dark onClick={handleShowFilter}> <BsFillFilterCircleFill style={{ color: '#fff', fontSize: '20px'}}/> </Fab>
             <Fab dark onClick={resetFilter}><RiFilterOffFill style={{ color: '#fff', fontSize: '20px'}}/></Fab> 
