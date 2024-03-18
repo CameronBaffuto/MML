@@ -2,18 +2,16 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD4pwz7Y0QECI3GFcroWbi6jRWSnLV9PiY",
-  authDomain: "mom-meds.firebaseapp.com",
-  databaseURL: "https://mom-meds-default-rtdb.firebaseio.com",
-  projectId: "mom-meds",
-  storageBucket: "mom-meds.appspot.com",
-  messagingSenderId: "517604121111",
-  appId: "1:517604121111:web:21be15de1efd2a52e31a52"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASEURL,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);

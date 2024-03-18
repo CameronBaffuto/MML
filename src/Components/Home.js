@@ -24,7 +24,8 @@ import Image from 'react-bootstrap/Image'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { BsFillFilterCircleFill } from "react-icons/bs";
-import { RiFilterOffFill } from "react-icons/ri"
+import { RiFilterOffFill } from "react-icons/ri";
+import { Switch } from 'ui-neumorphism';
 
 
 function Home() {
@@ -40,9 +41,12 @@ function Home() {
     const [tempUidd, setTempUidd] = useState("");
     const [isUser, setIsUser] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
+    const [hidden, setHidden] = useState(false);
 
     const handleCloseFilter = () => setShowFilter(false);
     const handleShowFilter = () => setShowFilter(true);
+
+    const handleHiddenMeds = () => setHidden(!hidden);
 
     const handleCloseAdd = () => setShowAdd(false);
     const handleShowAdd = () => {
@@ -84,6 +88,7 @@ function Home() {
           type: type,
           medImage: medImage,
           frequency: frequency,
+          hidden: true,
           uidd: uidd,
         });
 
@@ -128,6 +133,7 @@ function Home() {
     const resetFilter = () => {
       setQuery("");
       query("");
+      setHidden(false)
     }
     
     const amount = meds.length;
@@ -213,6 +219,7 @@ function Home() {
         
           <h5 className="my-3 mx-3">Number of Drugs: {amount}</h5>
           <p className="my-3 mx-3">Day: {daytime} | Night: {nighttime} | Both: {bothdn} | As Needed: {asneed}</p>
+          <p>{hidden ? "on" : "off"}</p>
 
           <TextField dark autofocus bordered type="text" label="Search..." value={query} onChange={(e) => setQuery(e.value)} /> 
           <Stack className="mx-4" direction="horizontal" gap={3}>
@@ -233,6 +240,7 @@ function Home() {
                       <Radio value='Night' label='Night' color='blue' />
                       <Radio value='Day & Night' label='Day & Night' color='purple' />
                     </RadioGroup>
+                    <Switch dark label='Hidden' onClick={handleHiddenMeds}/>
                   </Modal.Body>
                   <Modal.Footer>
                     <Button dark onClick={handleCloseFilter}>Apply</Button>
@@ -242,7 +250,7 @@ function Home() {
     
         {
             meds
-            .filter(med => med.name.toLowerCase().includes(query.toLowerCase()) || med.frequency.toLowerCase().includes(query.toLowerCase()))
+            .filter(med => med.name.toLowerCase().includes(query.toLowerCase()) || med.frequency.toLowerCase().includes(query.toLowerCase()) )
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(med => {
                 return (
